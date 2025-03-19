@@ -1,0 +1,6 @@
+@Schuetzler_Mission11.API_HostAddress = http://localhost:5110
+
+GET {{Schuetzler_Mission11.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
