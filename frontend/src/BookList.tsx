@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Book } from "./types/Book";
 
-function BookList(){
+function BookList({selectedCategories}: {selectedCategories: string[]}){
 
     const [books, setBooks] = useState<Book[]>([]);
     const [pageSize, setPageSize] = useState<number>(5);
@@ -12,7 +12,8 @@ function BookList(){
 
     useEffect(() => {
         const fetchBooks = async () => {
-            const response = await fetch(`https://localhost:3200/Book/${sortOrder}?pageSize=${pageSize}&pageNum=${pageNum}`);
+            const categoryParams = selectedCategories.map((cat) => `bookTypes=${encodeURIComponent(cat)}`).join('&');
+            const response = await fetch(`https://localhost:3200/Book/${sortOrder}?pageSize=${pageSize}&pageNum=${pageNum}${selectedCategories.length ? `&${categoryParams}` : ''}`);
             const data = await response.json()
             setBooks(data.books);
             setTotalItems(data.totalNumBooks);
@@ -20,12 +21,10 @@ function BookList(){
         };
 
         fetchBooks();
-    }, [pageSize, pageNum, totalItems, sortOrder]);
+    }, [pageSize, pageNum, totalItems, sortOrder, selectedCategories]);
 
     return(
         <>
-            <h1>Book List</h1>
-            <br />
             {books.map((b) =>
                 <div id="bookCard" className="card" key={b.bookID}> 
                     <h3 className="card-title">{b.title}</h3>

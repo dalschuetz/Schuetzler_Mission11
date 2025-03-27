@@ -69,3 +69,4 @@ C:\Users\dalle\OneDrive\Desktop\Dallen\BYU\Winter 2025\413\Schuetzler_Mission11\
 C:\Users\dalle\OneDrive\Desktop\Dallen\BYU\Winter 2025\413\Schuetzler_Mission11\backend\Mission11.API\obj\Debug\net8.0\Schuetzler_Mission11.API.genruntimeconfig.cache
 C:\Users\dalle\OneDrive\Desktop\Dallen\BYU\Winter 2025\413\Schuetzler_Mission11\backend\Mission11.API\obj\Debug\net8.0\ref\Schuetzler_Mission11.API.dll
 C:\Users\dalle\OneDrive\Desktop\Dallen\BYU\Winter 2025\413\Schuetzler_Mission11\backend\Mission11.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\dalle\OneDrive\Desktop\Dallen\BYU\Winter 2025\413\Schuetzler_Mission11\backend\Mission11.API\obj\Debug\net8.0\Schuetzler_Mission11.API.sourcelink.json
