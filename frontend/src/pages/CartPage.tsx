@@ -19,7 +19,7 @@ function CartPage() {
                     <ul>
                         {cart.map((item: CartItem) => (
                             <li className="list-unstyled" key={item.bookID}>
-                                {item.quantity}x {item.title}: ${(item.price * item.quantity).toFixed(2)}
+                                {item.quantity}x {item.title} | Subtotal ${(item.price * item.quantity).toFixed(2)}
                                 <button
                                     className="btn btn-danger"
                                     onClick={() => removeFromCart(item.bookID)}
@@ -34,7 +34,7 @@ function CartPage() {
             <h3>Total: ${totalPrice.toFixed(2)}</h3>
             <button className="btn btn-success" onClick={() => clearCart()}>Checkout</button>
             <button className="btn btn-danger" onClick={() => clearCart()}>Clear Cart</button>
-            <button className="btn btn-primary" onClick={() => navigate('/books')}>Continue Browsing</button>
+            <button className="btn btn-primary" onClick={() => navigate(-1)}>Go Back</button>
         </div>
     );
 }

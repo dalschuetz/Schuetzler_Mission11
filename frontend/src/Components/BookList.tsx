@@ -49,7 +49,7 @@ function BookList({selectedCategories}: {selectedCategories: string[]}){
                             <li><strong>ISBN:</strong> {b.isbn}</li>
                             <li><strong>Category:</strong> {b.category}</li>
                             <li><strong>Number of Pages:</strong> {b.pageCount}</li>
-                            <li><strong>Price:</strong> {b.price}</li>
+                            <li><strong>Price:</strong> ${b.price}</li>
                         </ul>
                         <button className="btn btn-success" onClick={() => handleAddToCart(b)}>Add to Cart</button>
                     </div>
