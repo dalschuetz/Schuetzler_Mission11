@@ -27,9 +27,13 @@
   }
 }
 
+.logo-spin {
+  animation: logo-spin 2s linear infinite; /* Spins every 2 seconds */
+}
+
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+    animation: logo-spin infinite 30s linear;
   }
 }
 
@@ -39,4 +43,12 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.bg-image {
+  background-image: url('/images/spinninghilty.jpg');
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }

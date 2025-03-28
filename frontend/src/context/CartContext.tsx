@@ -18,7 +18,6 @@ export const CartProvider = ({children}: {children: ReactNode}) => {
             const existingItem = prevCart.find((c) => c.bookID === item.bookID);
 
             if (existingItem) {
-                // Increment the quantity of the existing item
                 return prevCart.map((c) =>
                     c.bookID === item.bookID
                         ? { ...c, quantity: c.quantity + 1 }
@@ -36,10 +35,10 @@ export const CartProvider = ({children}: {children: ReactNode}) => {
             prevCart
                 .map((item) =>
                     item.bookID === bookID
-                        ? { ...item, quantity: item.quantity - 1 } // Decrease quantity by 1
+                        ? { ...item, quantity: item.quantity - 1 }
                         : item
                 )
-                .filter((item) => item.quantity > 0) // Remove items with quantity 0
+                .filter((item) => item.quantity > 0)
         );
     };
 

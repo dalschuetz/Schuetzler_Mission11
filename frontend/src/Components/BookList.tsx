@@ -18,7 +18,7 @@ function BookList({selectedCategories}: {selectedCategories: string[]}){
             bookID: Number(b.bookID),
             title: b.title || "No Book Found",
             price: Number(b.price),
-            quantity: 1, // Set initial quantity to 1
+            quantity: 1,
         };
         addToCart(newItem);
     };

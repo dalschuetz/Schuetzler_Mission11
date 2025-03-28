@@ -11,7 +11,9 @@ function CartPage() {
 
     return (
         <div>
-            <h2>Your Cart</h2>
+            <div className="bg-image">
+                <h2 style={{color: "white"}}>Your Cart</h2>
+            </div>
             <div>
                 {cart.length === 0 ? (
                     <p>Your cart is empty</p>
@@ -34,7 +36,7 @@ function CartPage() {
             <h3>Total: ${totalPrice.toFixed(2)}</h3>
             <button className="btn btn-success" onClick={() => clearCart()}>Checkout</button>
             <button className="btn btn-danger" onClick={() => clearCart()}>Clear Cart</button>
-            <button className="btn btn-primary" onClick={() => navigate(-1)}>Go Back</button>
+            <button className="btn btn-primary" onClick={() => navigate(-1)}>Continue Shopping</button>
         </div>
     );
 }

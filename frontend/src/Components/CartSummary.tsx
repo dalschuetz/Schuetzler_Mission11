@@ -5,7 +5,6 @@ function CartSummary () {
     const navigate = useNavigate();
     const { cart } = UseCart();
 
-    // Calculate the total amount by considering quantity
     const totalAmount = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
     return (
