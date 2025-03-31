@@ -13,7 +13,7 @@ pageSize: number, pageNum: number, selectedCategories: string[], sortOrder: stri
 ): Promise<FetchBooksResponse> => {
     try{
         const categoryParams = selectedCategories.map((cat) => `bookTypes=${encodeURIComponent(cat)}`).join('&');
-        const response = await fetch(`${API_URL}${sortOrder}?pageSize=${pageSize}&pageNum=${pageNum}${selectedCategories.length ? `&${categoryParams}` : ''}`);
+        const response = await fetch(`${API_URL}/${sortOrder}?pageSize=${pageSize}&pageNum=${pageNum}${selectedCategories.length ? `&${categoryParams}` : ''}`);
         if (!response.ok) {
             throw new Error(`Failed to Fetch Books: ${response.statusText}`);}
         return await response.json()

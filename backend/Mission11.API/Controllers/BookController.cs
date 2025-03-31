@@ -103,7 +103,7 @@ namespace Schuetzler_Mission11.API.Controllers
             return Ok(bookTypes);
         }
 
-        [HttpPost("Add")]
+        [HttpPost("AddBook")]
         public IActionResult AddBook ([FromBody] Book newBook)
         {
             _bookContext.Books.Add(newBook);
@@ -123,8 +123,8 @@ namespace Schuetzler_Mission11.API.Controllers
             book.Author = updatedBook.Author;
             book.Publisher = updatedBook.Publisher;
             book.ISBN = updatedBook.ISBN;
-            book.Classification = updatedBook.Classification;
             book.Category = updatedBook.Category;
+            book.Classification = updatedBook.Classification;
             book.PageCount = updatedBook.PageCount;
             book.Price = updatedBook.Price;
             _bookContext.Books.Update(book);

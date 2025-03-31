@@ -2,7 +2,7 @@
   {
     "ContainingType": "Schuetzler_Mission11.API.Controllers.BookController",
     "Method": "AddBook",
-    "RelativePath": "Book/Add",
+    "RelativePath": "Book/AddBook",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
