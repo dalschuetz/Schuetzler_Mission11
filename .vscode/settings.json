@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/25c439a9-cd63-49e3-a39e-94592030b22f/resourceGroups/appsvc_windows_centralus/providers/Microsoft.Web/sites/Mission13-Schuetzler-Backend",
+    "appService.deploySubpath": "backend\\Mission11.API\\publish"
+}

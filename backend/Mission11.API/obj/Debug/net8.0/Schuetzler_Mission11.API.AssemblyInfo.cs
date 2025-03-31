@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Schuetzler_Mission11.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7511371cd75b1785714b018537cf059b53f6e287")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+00342e59edf8198a413da410b5cfb165d39591eb")]
 [assembly: System.Reflection.AssemblyProductAttribute("Schuetzler_Mission11.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Schuetzler_Mission11.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
