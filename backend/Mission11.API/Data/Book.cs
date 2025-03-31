@@ -15,6 +15,8 @@ namespace Schuetzler_Mission11.API.Data
         [Required]
         public string ISBN { get; set; } = "";
         [Required]
+        public string Classification { get; set; } = "";
+        [Required]
         public string Category { get; set; } = "";
         [Required]
         public int PageCount { get; set; } = 0;

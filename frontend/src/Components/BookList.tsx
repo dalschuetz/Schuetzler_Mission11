@@ -2,16 +2,19 @@ import { useEffect, useState } from "react";
 import { Book } from "../types/Book";
 import { UseCart } from "../context/CartContext";
 import { CartItem } from "../types/CartItem";
+import { fetchBooks } from "../api/BooksAPI";
+import Pagination from "./Pagination";
 
 function BookList({selectedCategories}: {selectedCategories: string[]}){
 
     const [books, setBooks] = useState<Book[]>([]);
     const [pageSize, setPageSize] = useState<number>(5);
     const [pageNum, setPageNum] = useState<number>(1);
-    const [totalItems, setTotalItems] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [sortOrder, setSortOrder] = useState<string>("AllBooks");
     const {addToCart} = UseCart();
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
 
     const handleAddToCart = (b: Book) => {
         const newItem: CartItem = {
@@ -25,17 +28,30 @@ function BookList({selectedCategories}: {selectedCategories: string[]}){
       
 
     useEffect(() => {
-        const fetchBooks = async () => {
-            const categoryParams = selectedCategories.map((cat) => `bookTypes=${encodeURIComponent(cat)}`).join('&');
-            const response = await fetch(`https://localhost:3200/Book/${sortOrder}?pageSize=${pageSize}&pageNum=${pageNum}${selectedCategories.length ? `&${categoryParams}` : ''}`);
-            const data = await response.json()
-            setBooks(data.books);
-            setTotalItems(data.totalNumBooks);
-            setTotalPages(Math.ceil(totalItems / pageSize));
+        const loadBooks = async () => {
+            try{
+                setLoading(true);
+                const data = await fetchBooks(pageSize, pageNum, selectedCategories, sortOrder);
+                setBooks(data.books);
+                setTotalPages(Math.ceil(data.totalNumBooks / pageSize));
+            }
+            catch (error) {
+                setError((error as Error).message);}
+                finally{
+                    setLoading(false);
+                }
         };
 
-        fetchBooks();
-    }, [pageSize, pageNum, totalItems, sortOrder, selectedCategories]);
+        loadBooks();
+    }, [pageSize, pageNum, sortOrder, selectedCategories]);
+
+
+    if (loading) {
+        return <div>Loading books...</div>;
+    }
+    if (error) {
+        return <div className="text-red-500">Error: {error}</div>;
+    }
 
     return(
         <>
@@ -55,50 +71,17 @@ function BookList({selectedCategories}: {selectedCategories: string[]}){
                     </div>
                 </div>
             )}
-            <button disabled={pageNum === 1} 
-            onClick={() => setPageNum(pageNum - 1)} >Previous</button>
-
-            {
-                [...Array(totalPages)].map((_, i) => (
-                    <button key={i + 1} onClick={() => setPageNum(i + 1)} disabled={pageNum === (i + 1)}>
-                        {i + 1}
-                    </button>
-                ))
-            }
-
-            <button disabled={pageNum === totalPages} 
-            onClick={() => setPageNum(pageNum + 1)}>Next</button>
-
-            <br />
-            <label>
-            Sort by:
-            <select
-                className="form-select w-auto d-inline-block"
-                value={sortOrder}
-                onChange={(e) => {
-                setSortOrder(e.target.value);
-                setPageNum(1);
-                }}
-            >
-                <option value="AllBooks">Unsorted</option>
-                <option value="BooksAsc">A-Z</option>
-                <option value="BooksDesc">Z-A</option>
-            </select>
-            </label>
-
-            <br />
-            <label>
-                Results per page:
-                <select 
-                    value={pageSize} 
-                    onChange={(p) => {setPageSize(Number(p.target.value));
-                    setPageNum(1);
-                    }}>
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="15">15</option>
-                </select>
-            </label>
+            <Pagination 
+                        currentPage={pageNum}
+                        totalPages={totalPages}
+                        pageSize={pageSize}
+                        sortOrder={sortOrder}
+                        onPageChange={setPageNum}
+                        onPageSizeChange={(newSize) => {
+                            setPageSize(newSize);
+                            setPageNum(1);
+                        }}
+                        onSortOrderChange={setSortOrder}/>
         </>
     );
 }
