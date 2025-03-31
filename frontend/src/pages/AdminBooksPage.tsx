@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Book } from "../types/Book";
-import { fetchBooks } from "../api/BooksAPI";
+import { deleteBook, fetchBooks } from "../api/BooksAPI";
 import Pagination from "../Components/Pagination";
 import NewBookForm from "../Components/NewBookForm";
+import EditBookForm from "../Components/EditBookForm";
 
 const AdminBooksPage = () => {
     const [books, setBooks] = useState<Book[]>([]);
@@ -13,6 +14,7 @@ const AdminBooksPage = () => {
     const [totalPages, setTotalPages] = useState<number>(0);
     const [sortOrder, setSortOrder] = useState<string>("AllBooks");
     const [showForm, setShowForm] = useState<boolean>(false);
+    const [editBook, setEditBook] = useState<Book | null>(null);
     
     useEffect(() => {
         const loadBooks = async () => {
@@ -31,6 +33,18 @@ const AdminBooksPage = () => {
 
         loadBooks();
     }, [pageSize, pageNum, sortOrder]);
+
+    const handleDelete = async (bookID: number) => {
+        const confirmDelte = window.confirm("Are you sure you want to delete this book?");
+        if (confirmDelte) {
+            try {
+                deleteBook(bookID); 
+                setBooks(books.filter((b) => b.bookID !== bookID));
+            } catch (error) {
+                alert("Error deleting book:");
+            }
+        }
+    };
 
     if (loading) return <div>Loading books...</div>;
     if (error) return <div className="text-red-500">Error: {error}</div>;
@@ -56,6 +70,18 @@ const AdminBooksPage = () => {
                 />
             )}
 
+            {editBook && (
+                <EditBookForm book={editBook}
+                    onSuccess={() => {
+                        setEditBook(null);
+                        fetchBooks(pageSize, pageNum, [], sortOrder).then((data) => {
+                            setBooks(data.books);
+                        });
+                    }}
+                    onCancel={() => setEditBook(null)}
+                />
+            )}
+
             <table className="table table-striped table-bordered">
                 <thead className="thead-dark">
                     <tr>
@@ -74,8 +100,8 @@ const AdminBooksPage = () => {
                             <td>{b.author}</td>
                             <td>{b.price}</td>
                             <td>
-                                <button className="btn btn-primary btn-sm w-100 mb-1" onClick={() => console.log(`Edit ${b.bookID}`)}>Edit</button>
-                                <button className="btn btn-danger btn-sm w-100 mb-1" onClick={() => console.log(`Delete ${b.bookID}`)}>Delete</button>
+                                <button className="btn btn-primary btn-sm w-100 mb-1" onClick={() => setEditBook(b)}>Edit</button>
+                                <button className="btn btn-danger btn-sm w-100 mb-1" onClick={() => handleDelete(b.bookID)}>Delete</button>
                             </td>
                         </tr>
                     ))}

@@ -1,24 +1,15 @@
 import React, { useState } from "react";
 import { Book } from "../types/Book";
-import { addBook } from "../api/BooksAPI";
+import { updateBook } from "../api/BooksAPI";
 
-interface NewBookFormProps {
+interface EditBookFormProps {
+    book: Book;
     onSuccess: () => void;
     onCancel: () => void;
 }
 
-const NewBookForm = ({onSuccess, onCancel} : NewBookFormProps) => { 
-    const [formData, setFormData] = useState<Book>({
-        bookID: 0,
-        title: "",
-        author: "",
-        publisher: "",
-        isbn: "",
-        category: "",
-        classification: "",
-        pageCount: 0,
-        price: 0, 
-    });
+const EditBookForm = ({book, onSuccess, onCancel} : EditBookFormProps) => { 
+    const [formData, setFormData] = useState<Book>({...book});
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type } = e.target;
@@ -41,7 +32,7 @@ const NewBookForm = ({onSuccess, onCancel} : NewBookFormProps) => {
         }
         
         try {
-            await addBook(formData);
+            await updateBook(formData.bookID, formData);
             onSuccess();
         } catch (error) {
             // Handle error (could show an error message to the user)
@@ -60,10 +51,10 @@ const NewBookForm = ({onSuccess, onCancel} : NewBookFormProps) => {
             <label>Classification: <input type="text" name="classification" value={formData.classification} onChange={handleChange}/></label>
             <label>Page Count: <input type="number" name="pageCount" value={formData.pageCount} onChange={handleChange}/></label>
             <label>Price: <input type="number" name="price" value={formData.price} onChange={handleChange}/></label>
-            <button type="submit">Add Book</button>
+            <button type="submit">Update Book</button>
             <button type="button" onClick={onCancel}>Cancel</button>
         </form>
     );
 };
 
-export default NewBookForm;
+export default EditBookForm;
