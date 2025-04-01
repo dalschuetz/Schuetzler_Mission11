@@ -11,7 +11,7 @@ function SpinningHilty() {
         width: "150px",
       }}
       alt="Spinning Hilty"
-      onClick={() => navigate('/admin')}/>
+      onClick={() => navigate('/adminbooks')}/>
   );
 }
 
